@@ -17,11 +17,12 @@ public class AccountController {
     AccountRepository accountRepository;
 
     @GetMapping("/list")
-    @ResponseBody
-    public List<Account> userList() {
+    public String userList(Model model) {
+        System.out.println("넘어갔니?");
         List<Account> accounts = accountRepository.findAll();
-
-        return accounts;
+        System.out.println(accounts);
+        model.addAttribute("accounts",accounts);
+        return "userList";
     }
 
     @GetMapping("/login")
@@ -48,19 +49,20 @@ public class AccountController {
     }
 
     @PostMapping("/join")
-    public String join(Account account, Model model, HttpSession session) {
+    public String join(Account account) {
 
         Account newAccount = Account.builder()
                 .accountId(account.getAccountId())
                 .password(account.getPassword())
                 .name(account.getName())
-                .name(account.getEmail())
+                .email(account.getEmail())
                 .joinDate(LocalDate.now())
                 .build();
 
-        accountRepository.save(newAccount);
+        Account save = accountRepository.save(newAccount);
+        System.out.println(save);
 
-        return "index";
+        return "redirect:/user/list";
     }
 
 
@@ -70,13 +72,21 @@ public class AccountController {
         Account loginAccount = (Account)session.getAttribute("account");
         Account updateAccount = accountRepository.findById(id).get();
 
-        if(loginAccount==null)      // 로그인을 안했을때 login 페이지로
+//        System.out.println(loginAccount);
+        if(loginAccount==null)  {
+            // 로그인을 안했을때 login 페이지로
+            System.out.println("로그인이 필요합니다.");
             return "login";
+        }
 
-        if(updateAccount==null)     // 수정할 id가 존재하지않습니다.
+        if(updateAccount==null)  {
+            // 수정할 id가 존재하지않습니다.
+            System.out.println("수정할 아이디가 존재하지 않습니다.");
             return "index";
+        }
 
         if(loginAccount.getId()!=updateAccount.getId()) {
+            System.out.println("다른 사용자의 정보는 수정할 수 없습니다.");
             return "index";
         }
 
@@ -87,7 +97,7 @@ public class AccountController {
 
     @PutMapping("/{id}")
     public String update(@PathVariable Long id, Account updateAccount,HttpSession session) {
-
+        System.out.println("update: "+id+ " "+updateAccount);
         Account account = accountRepository.findById(id).get();
 
         account.setPassword(updateAccount.getPassword());
@@ -95,10 +105,14 @@ public class AccountController {
         account.setName(updateAccount.getName());
 
         Account saveAccount = accountRepository.save(account);
-
         session.removeAttribute("account");
         session.setAttribute("account",saveAccount);
 
-        return "accountList";
+        return "redirect:/user/list";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("account");
+        return "index";
     }
 }

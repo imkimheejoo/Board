@@ -14,8 +14,13 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/user/join">회원가입</a></li>
-                <li><a href="/user/login">로그인</a></li>
-                <!--<li><a href="/logout">로그아웃</a></li>-->
+                {{^account}}    <!-- 세션의 유무-->
+                    <li><a href="/user/login">로그인</a></li>
+                {{/account}}
+                {{#account}}
+                    <li><a href="/logout">로그아웃</a></li>
+                    <li><a href="/user/{{id}}">개인정보수정</a></li>
+                {{/account}}
                 <li><a href="/board">게시판</a></li>
             </ul>
         </div><!--/.nav-collapse -->
