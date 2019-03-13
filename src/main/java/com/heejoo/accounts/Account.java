@@ -19,11 +19,26 @@ public class Account {
     @GeneratedValue
     @Id
     private Long id;
+    public boolean matchId(Long newId){
+        if(newId==null){
+            return false;
+        }
+        return newId.equals(id);
+    }
     private String accountId;
     private String password;
     private String name;
     private String email;
     private LocalDate joinDate;
+
+
+
+    public boolean matchPassword(String newPassword){
+        if(newPassword==null){
+            return false;
+        }
+        return newPassword.equals(password);
+    }
 
 
 }
