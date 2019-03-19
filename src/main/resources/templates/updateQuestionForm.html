@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> include/header }}
+<body>
+{{> include/navbar }}
+
+<div class="container">
+{{#updateData}}
+    <form method="post">
+        <input type="hidden" name="_method" value="put"/>
+        <h3 class="mb-3">글수정</h3>
+
+        <div class="form-group">
+            <label>글 제목</label>
+            <input type="text" class="form-control" name="title" value="{{title}}" placeholder="글 제목" />
+        </div>
+
+        <div class="form-group">
+            <label>글 내용</label>
+            <textarea class="form-control" rows="10" name="contents" placeholder="글 내용">{{contents}}</textarea>
+        </div>
+
+        <div class="text-right">
+            <button class="btn btn-primary" type="submit" href="/question/{{id}}">작성</button>
+            <a href="/question"><button class="btn btn-primary" type="button">취소</button></a>
+        </div>
+    </form>
+{{/updateData}}
+</div>
+
+
+{{> include/footer }}
+</body>
+</html>

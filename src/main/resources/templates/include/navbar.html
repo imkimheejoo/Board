@@ -1,28 +1,19 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Project name</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            {{^sessionAccount}}    <!-- 세션의 유무-->
+            <a class="nav-item nav-link" href="/user/join">회원가입</a>
+            <a class="nav-item nav-link" href="/user/login">로그인</a>
+            {{/sessionAccount}}
+            {{#sessionAccount}}
+            <a class="nav-item nav-link" href="/user/logout">로그아웃</a>
+            <a class="nav-item nav-link" href="/user/{{id}}">개인정보수정</a>
+            {{/sessionAccount}}
+            <a class="nav-item nav-link" href="/question">게시판</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                {{^sessionAccount}}    <!-- 세션의 유무-->
-                    <li><a href="/user/join">회원가입</a></li>
-                    <li><a href="/user/login">로그인</a></li>
-                {{/sessionAccount}}
-                {{#sessionAccount}}
-                    <li><a href="/user/logout">로그아웃</a></li>
-                <li><a href="/user/{{id}}">개인정보수정</a></li>
-                {{/sessionAccount}}
-                <li><a href="/board">게시판</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid -->
+    </div><!--/.nav-collapse -->
 </nav>

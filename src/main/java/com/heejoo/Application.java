@@ -2,6 +2,8 @@ package com.heejoo;
 
 import com.heejoo.accounts.Account;
 import com.heejoo.accounts.AccountRepository;
+import com.heejoo.questions.Question;
+import com.heejoo.questions.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -10,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class Application {
@@ -19,11 +22,13 @@ public class Application {
     }
 
     @Bean
-    public ApplicationRunner applicationRunner(){
+    public ApplicationRunner applicationRunner() {
         return new ApplicationRunner() {
 
             @Autowired
             AccountRepository accountRepository;
+            @Autowired
+            QuestionRepository questionRepository;
             @Override
             public void run(ApplicationArguments args) throws Exception {
                 Account account = Account.builder()
@@ -34,7 +39,26 @@ public class Application {
                         .joinDate(LocalDate.now())
                         .build();
 
-                accountRepository.save(account);
+                Account savedAccount = accountRepository.save(account);
+
+                Account account2 = Account.builder()
+                        .accountId("user2")
+                        .email("user2@email.com")
+                        .name("유저2")
+                        .password("pass2")
+                        .joinDate(LocalDate.now())
+                        .build();
+
+               accountRepository.save(account2);
+
+                Question question=Question.builder()
+                        .title("제목")
+                        .contents("내용")
+                        .createTime(LocalDateTime.now())
+                        .writer(savedAccount)
+                        .build();
+
+                questionRepository.save(question);
 
             }
         };

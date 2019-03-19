@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="kr">
+{{> include/header }}
+<body>
+{{> include/navbar }}
+<div class="container">
+    {{#questionData}}
+    <h5 class="mt-5 mb-2">글제목</h5>
+    <div readonly class="mb-2 form-control">
+        {{title}}
+    </div>
+    <h5 class="mb-2">글 내용</h5>
+    <textarea readonly class="mb-5 form-control">
+        {{contents}}
+    </textarea>
+
+    <div class="form-inline">
+        <div class="form-group">
+            <a href="/question">
+                <button class="btn btn-primary">목록</button>
+            </a>
+        </div>
+        <div class="form-group">
+            <a href="/question/{{id}}">
+                <button class="btn btn-primary">수정</button>
+            </a>
+        </div>
+        <div class="form-group">
+            <form method="post" action="/question/{{id}}">
+                <input type="hidden" name="_method" value="DELETE"/>
+                <button class="btn btn-primary" type="submit">삭제</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{{/questionData}}
+{{> include/footer }}
+</body>
+</html>

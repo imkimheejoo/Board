@@ -14,19 +14,23 @@
         </tr>
         </thead>
         <tbody>
-        {{#boards}}
+        {{#questions}}
         <tr>
             <th scope="row">{{id}}</th>
-            <td>{{title}}</td>
-            <td>{{writer}}</td>
-            <td>{{loadTime}}</td>
+            <td><a href="/question/contents/{{id}}">{{title}}</a></td>
+            <td>{{writer.accountId}}</td>
+            <td>{{formattedLocalDateTime}}</td>
         </tr>
-        {{/boards}}
+        {{/questions}}
         </tbody>
     </table>
-</div>
-<a href="/board/write"><button class="btn btn-primary">글쓰기</button></a>
 
+    <div class="text-right">
+        <a href="/question/write">
+            <button class="btn btn-primary">글쓰기</button>
+        </a>
+    </div>
+</div>
 
 
 {{> include/footer }}
