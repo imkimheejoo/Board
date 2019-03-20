@@ -25,6 +25,7 @@ public class AccountController {
         return "userList";
     }
 
+
     @GetMapping("/login")
     public String loginForm(){
         return "login";

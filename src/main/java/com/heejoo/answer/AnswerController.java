@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -27,11 +28,8 @@ public class AnswerController {
     @PostMapping
     public String createAnswer(@PathVariable Long id, String answer, HttpSession session){
 
-        System.out.println("fffff");
         Account loginAccount = HttpSessionUtils.getAccountFromSession(session);
         Question question = questionRepository.findById(id).get();
-
-        System.out.println("aaaaa");
 
         Answer newAnswer= Answer.builder()
                 .contents(answer)
@@ -41,8 +39,9 @@ public class AnswerController {
                 .build();
 
         answerRepository.save(newAnswer);
-        System.out.println(String.format("redirect:/question/contents/%d",id));
         return String.format("redirect:/question/contents/%d",id);
 
     }
+
+   
 }
