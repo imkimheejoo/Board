@@ -14,13 +14,34 @@
         {{contents}}
     </textarea>
 
-    <div class="form-inline">
+    <form action="/question/{{id}}/answer" method="post">
+        <textarea class="form-control" type="text" name="answer"></textarea>
+        <div class="mt-2 text-right">
+            <button class="btn btn-primary" type="submit">등록</button>
+        </div>
+    </form>
+
+    <div>
+        <label>댓글</label>
+        {{#answerList}}
+        <li class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                {{#writer}}
+                <span class="mb-1">{{name}}</span>
+                {{/writer}}
+                <span>{{formattedLocalDateTime}}</span>
+            </div>
+            <h5 class="mt-3">{{contents}}</h5>
+        </li>
+        {{/answerList}}
+    </div>
+    <div class="mt-3 mb-3 form-inline justify-content-end">
         <div class="form-group">
             <a href="/question">
                 <button class="btn btn-primary">목록</button>
             </a>
         </div>
-        <div class="form-group">
+        <div class="ml-1 mr-1 form-group">
             <a href="/question/{{id}}">
                 <button class="btn btn-primary">수정</button>
             </a>
@@ -32,8 +53,8 @@
             </form>
         </div>
     </div>
-
 </div>
+
 {{/questionData}}
 {{> include/footer }}
 </body>

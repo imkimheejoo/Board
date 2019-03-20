@@ -1,12 +1,14 @@
 package com.heejoo.questions;
 
 import com.heejoo.accounts.Account;
+import com.heejoo.answer.Answer;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
+import java.util.List;
 
 @Entity
 @Builder
@@ -26,6 +28,9 @@ public class Question {
     private Account writer;
     //    private String writer;
     private LocalDateTime createTime;
+    //mappedBy는 매핑되는 변수의 이름
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answerList;
 
     public String formattedLocalDateTime() {
         if (createTime == null) {
