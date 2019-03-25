@@ -47,10 +47,10 @@
                     </div>
 
                     <div class="article-util text-right mt-1 mb-1">
-                        <button class="btn btn-primary mr-1" href="/questions/413/answers/1405/form">수정</button>
-                        <form class="float-right delete-answer-form" action="/api/questions/{3}/answers/{4}" method="POST">
+                        <button class="btn btn-primary mr-1" href="/api/question/{{question.id}}/answer">수정</button>
+                        <form class="float-right delete-answer-form" action="/api/question/{{question.id}}/answer/{{id}}" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-primary">삭제</button>
+                            <button class="btn btn-primary" type="submit">삭제</button>
                         </form>
                     </div>
                 </article>
@@ -81,8 +81,8 @@
         </div>
 
         <div class="article-util text-right mt-1 mb-1">
-            <button class="btn btn-primary mr-1" href="/questions/413/answers/1405/form">수정</button>
-            <form class="float-right delete-answer-form" action="/api/questions/{3}/answers/{4}" method="POST">
+            <button class="btn btn-primary mr-1" href="/api/question/{3}/answer">수정</button>
+            <form class="float-right delete-answer-form" action="/api/question/{3}/answers/{4}" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <button type="submit" class="btn btn-primary">삭제</button>
             </form>

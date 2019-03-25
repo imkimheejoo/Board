@@ -54,4 +54,8 @@ public class Answer {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일 a h시 m분");
         return answerDate.format(dateTimeFormatter);
     }
+
+    public boolean isSameWriter(Account loginAccount){
+        return loginAccount.equals(this.writer);
+    }
 }

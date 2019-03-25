@@ -1,6 +1,7 @@
 package com.heejoo.accounts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.heejoo.answer.Answer;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -53,6 +54,5 @@ public class Account {
         }
         return newPassword.equals(password);
     }
-
 
 }
