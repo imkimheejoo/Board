@@ -1,5 +1,6 @@
 package com.heejoo.answer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.heejoo.accounts.Account;
 import com.heejoo.questions.Question;
 import lombok.*;
@@ -44,7 +45,7 @@ public class Answer {
     private Account writer;
 
     private LocalDateTime answerDate;
-
+    @JsonProperty
     public String formattedLocalDateTime() {
         if (answerDate == null) {
             return "";

@@ -1,5 +1,6 @@
 package com.heejoo.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ public class Account {
         return newId.equals(id);
     }
     private String accountId;
+    @JsonIgnore
     private String password;
     private String name;
     private String email;

@@ -3,6 +3,7 @@
 {{> include/header }}
 <body>
 {{> include/navbar }}
+
 <div class="container">
     {{#questionData}}
     <h5 class="mt-5 mb-2">글제목</h5>
@@ -14,48 +15,80 @@
         {{contents}}
     </textarea>
 
-    <form action="/question/{{id}}/answer" method="post">
+    <form class="answer-write" action="/api/question/{{id}}/answer" method="post">
         <textarea class="form-control" type="text" name="answer"></textarea>
         <div class="mt-2 text-right">
             <button class="btn btn-primary" type="submit">등록</button>
         </div>
     </form>
 
-    <div>
-        <label>댓글</label>
+    <p class="qna-comment-count"><strong>{{answerList.size}}</strong>개의 의견</p>
+
+    <div class="qna-comment">
         {{#answerList}}
-        <li class="list-group-item">
-            <div class="d-flex w-100 justify-content-between">
-                {{#writer}}
-                <span class="mb-1">{{name}}</span>
-                {{/writer}}
-                <span>{{formattedLocalDateTime}}</span>
+        <div class="qna-comment-slipp">
+            <div class="qna-comment-slipp-articles">
+                <article class="article" id="answer-1405">
+                    <div class="article-header row">
+                        <div class="article-header-thumb col-2">
+                            <img src="https://graph.facebook.com/v2.3/1324855987/picture" class="article-author-thumb"
+                                 alt="">
+                        </div>
+                        <div class="article-header-text col-10">
+                            <div class="border p-2 border-dark">
+                                <label><strong>이름</strong></label>
+                                <p>{{writer.name}} </p>
+                                <label><strong>날짜</strong></label>
+                                <p> {{formattedLocalDateTime}} </p>
+                                <label><strong>내용</strong></label>
+                                <p>{{contents}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-util text-right mt-1 mb-1">
+                        <button class="btn btn-primary mr-1" href="/questions/413/answers/1405/form">수정</button>
+                        <form class="float-right delete-answer-form" action="/api/questions/{3}/answers/{4}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-primary">삭제</button>
+                        </form>
+                    </div>
+                </article>
+                {{/answerList}}
+                {{/questionData}}
             </div>
-            <h5 class="mt-3">{{contents}}</h5>
-        </li>
-        {{/answerList}}
-    </div>
-    <div class="mt-3 mb-3 form-inline justify-content-end">
-        <div class="form-group">
-            <a href="/question">
-                <button class="btn btn-primary">목록</button>
-            </a>
-        </div>
-        <div class="ml-1 mr-1 form-group">
-            <a href="/question/{{id}}">
-                <button class="btn btn-primary">수정</button>
-            </a>
-        </div>
-        <div class="form-group">
-            <form method="post" action="/question/{{id}}">
-                <input type="hidden" name="_method" value="DELETE"/>
-                <button class="btn btn-primary" type="submit">삭제</button>
-            </form>
         </div>
     </div>
 </div>
 
-{{/questionData}}
+<script type="text/template" id="answerTemplate">
+    <article class="article">
+        <div class="article-header row">
+            <div class="article-header-thumb col-2">
+                <img src="https://graph.facebook.com/v2.3/1324855987/picture" class="article-author-thumb"
+                     alt="">
+            </div>
+            <div class="article-header-text col-10">
+                <div class="border p-2 border-dark">
+                    <label><strong>이름</strong></label>
+                    <p>{0} </p>
+                    <label><strong>날짜</strong></label>
+                    <p> {1} </p>
+                    <label><strong>내용</strong></label>
+                    <p>{2}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-util text-right mt-1 mb-1">
+            <button class="btn btn-primary mr-1" href="/questions/413/answers/1405/form">수정</button>
+            <form class="float-right delete-answer-form" action="/api/questions/{3}/answers/{4}" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-primary">삭제</button>
+            </form>
+        </div>
+    </article>
+</script>
 {{> include/footer }}
 </body>
 </html>

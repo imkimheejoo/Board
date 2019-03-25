@@ -1,5 +1,7 @@
 package com.heejoo.questions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.heejoo.accounts.Account;
 import com.heejoo.answer.Answer;
 import lombok.*;
@@ -29,9 +31,10 @@ public class Question {
     //    private String writer;
     private LocalDateTime createTime;
     //mappedBy는 매핑되는 변수의 이름
+    @JsonIgnore
     @OneToMany(mappedBy = "question")
     private List<Answer> answerList;
-
+    @JsonProperty
     public String formattedLocalDateTime() {
         if (createTime == null) {
             return "";
