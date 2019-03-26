@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -20,7 +19,6 @@ public class QuestionController {
 
     @GetMapping
     public String question(Model model) {
-
         List<Question> questionsList = questionRepository.findAll();
         model.addAttribute("questions", questionsList);
         return "board";
@@ -46,9 +44,10 @@ public class QuestionController {
         Question newBoard = Question.builder()
                 .title(board.getTitle())
                 .contents(board.getContents())
-                .createTime(LocalDateTime.now())
                 .writer(writerAccount)
+                .countOfAnswer(0)
                 .build();
+
         Question save = questionRepository.save(newBoard);
         System.out.println("게시글 저장완료! " + save);
         return "redirect:/question";

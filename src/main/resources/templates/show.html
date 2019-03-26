@@ -12,8 +12,17 @@
     </div>
     <h5 class="mb-2">글 내용</h5>
     <textarea readonly class="mb-5 form-control">
-        {{contents}}
-    </textarea>
+            {{contents}}
+        </textarea>
+
+    <div class="article-util text-right mt-1 mb-1 row">
+        <a href="/question/{{id}}"><button class="btn btn-primary mr-1">수정</button></a>
+        <form action="/question/{{id}}" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn btn-primary" type="submit">삭제</button>
+        </form>
+    </div>
+
 
     <form class="answer-write" action="/api/question/{{id}}/answer" method="post">
         <textarea class="form-control" type="text" name="answer"></textarea>
@@ -41,7 +50,7 @@
                                 <label><strong>이름</strong></label>
                                 <p>{{writer.name}} </p>
                                 <label><strong>날짜</strong></label>
-                                <p> {{formattedLocalDateTime}} </p>
+                                <p> {{formattedModifiedDate}} </p>
                                 <label><strong>내용</strong></label>
                                 <p>{{contents}}</p>
                             </div>
@@ -50,7 +59,8 @@
 
                     <div class="article-util text-right mt-1 mb-1">
                         <button class="btn btn-primary mr-1" href="/api/question/{{question.id}}/answer">수정</button>
-                        <form class="float-right delete-answer-form" action="/api/question/{{question.id}}/answer/{{id}}" method="POST">
+                        <form class="float-right delete-answer-form"
+                              action="/api/question/{{question.id}}/answer/{{id}}" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-primary" type="submit">삭제</button>
                         </form>

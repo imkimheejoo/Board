@@ -10,11 +10,13 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class Application {
 
     public static void main(String[] args) {
@@ -54,7 +56,7 @@ public class Application {
                 Question question=Question.builder()
                         .title("제목")
                         .contents("내용")
-                        .createTime(LocalDateTime.now())
+//                        .createDate(LocalDateTime.now())
                         .writer(savedAccount)
                         .countOfAnswer(0)
                         .build();

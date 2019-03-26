@@ -35,8 +35,9 @@ public class AnswerController {
                 .contents(answer)
                 .question(question)
                 .writer(loginAccount)
-                .answerDate(LocalDateTime.now())
+//                .answerDate(LocalDateTime.now())
                 .build();
+
 
         Answer save = answerRepository.save(newAnswer);
         question.addAnswer();
