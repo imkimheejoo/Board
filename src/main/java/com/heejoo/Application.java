@@ -56,6 +56,7 @@ public class Application {
                         .contents("내용")
                         .createTime(LocalDateTime.now())
                         .writer(savedAccount)
+                        .countOfAnswer(0)
                         .build();
 
                 questionRepository.save(question);

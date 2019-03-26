@@ -22,7 +22,9 @@
         </div>
     </form>
 
-    <p class="qna-comment-count"><strong>{{answerList.size}}</strong>개의 의견</p>
+
+    <p class="qna-comment-count"><strong>{{countOfAnswer}}</strong>개의 의견</p>
+
 
     <div class="qna-comment">
         {{#answerList}}
@@ -55,12 +57,12 @@
                     </div>
                 </article>
                 {{/answerList}}
-                {{/questionData}}
+
             </div>
         </div>
     </div>
 </div>
-
+{{/questionData}}
 <script type="text/template" id="answerTemplate">
     <article class="article">
         <div class="article-header row">

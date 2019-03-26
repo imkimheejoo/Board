@@ -21,9 +21,9 @@ public class AnswerController {
     QuestionRepository questionRepository;
 
     @PostMapping
-    public Answer createAnswer(@PathVariable Long questionId, String answer, HttpSession session){
-        if(!HttpSessionUtils.isLoginAccount(session)){
-            return  null;
+    public Answer createAnswer(@PathVariable Long questionId, String answer, HttpSession session) {
+        if (!HttpSessionUtils.isLoginAccount(session)) {
+            return null;
         }
         Account loginAccount = HttpSessionUtils.getAccountFromSession(session);
         Question question = questionRepository.findById(questionId).get();
@@ -31,33 +31,36 @@ public class AnswerController {
         System.out.println(answer);
         System.out.println(questionId);
 
-        Answer newAnswer= Answer.builder()
+        Answer newAnswer = Answer.builder()
                 .contents(answer)
                 .question(question)
                 .writer(loginAccount)
                 .answerDate(LocalDateTime.now())
                 .build();
 
-
         Answer save = answerRepository.save(newAnswer);
-        System.out.println(save);
+        question.addAnswer();
+        questionRepository.save(question);
         return save;
     }
 
     @DeleteMapping("/{id}")
-    public Result deleteAnswer(@PathVariable Long questionId,@PathVariable Long id, HttpSession session){
-        if(!HttpSessionUtils.isLoginAccount(session)){
+    public Result deleteAnswer(@PathVariable Long questionId, @PathVariable Long id, HttpSession session) {
+        if (!HttpSessionUtils.isLoginAccount(session)) {
             return Result.fail("로그인이 필요합니다!");
         }
         Account loginAccount = HttpSessionUtils.getAccountFromSession(session);
         Answer writer = answerRepository.findById(id).get();
-        if(!writer.isSameWriter(loginAccount)){
+        if (!writer.isSameWriter(loginAccount)) {
             return Result.fail("답변을 작성한 유저만 삭제가 가능합니다!");
         }
 
         answerRepository.delete(writer);
+        Question question=questionRepository.findById(questionId).get();
+        question.deleteAnswer();
+        questionRepository.save(question);
         return Result.ok();
     }
 
-   
+
 }

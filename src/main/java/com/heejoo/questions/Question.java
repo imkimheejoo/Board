@@ -34,6 +34,16 @@ public class Question {
     @JsonIgnore
     @OneToMany(mappedBy = "question")
     private List<Answer> answerList;
+
+    private Integer countOfAnswer = 0;
+
+    public void addAnswer(){
+        countOfAnswer++;
+    }
+
+    public void deleteAnswer(){
+        countOfAnswer--;
+    }
     @JsonProperty
     public String formattedLocalDateTime() {
         if (createTime == null) {
